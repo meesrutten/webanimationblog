@@ -16,7 +16,10 @@ const BlogPostCard = React.memo(
       >
         <Img
           alt={title}
-          className={`blogcard-image w-full shadow-none rounded-none${
+          style={{
+            filter: 'blur(3px)',
+          }}
+          className={`w-full shadow-none rounded-none${
             homepage ? ' h-56' : ''
           }`}
           fluid={img}
