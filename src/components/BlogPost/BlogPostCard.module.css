@@ -1,5 +1,9 @@
 .BlogPostCard {
   color: var(--color-text);
+
+  .blogcard-image {
+    filter: blur(3px);
+  }
 }
 
 .BlogPostBody {

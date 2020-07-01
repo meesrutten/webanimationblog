@@ -11,9 +11,7 @@ export const Arrow = props => {
       width="43"
       height="20"
       viewBox="0 0 43 20"
-      className={`${containerStyles.Arrow} ${
-        rotation ? `transform rotate-${rotation}` : ''
-      }`}
+      className={`${containerStyles.Arrow} transform rotate-180`}
     >
       <g transform="translate(-2125 461)">
         <use
