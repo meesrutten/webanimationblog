@@ -158,26 +158,29 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
           `,
         }}
       />
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: `
-          {
-              "@context": "https://schema.org",
-              "@type": "BreadcrumbList",
-              "itemListElement": [{
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Blog",
-                "item": "https://webanimation.blog/blog"
-              },{
-                "@type": "ListItem",
-                "position": 2,
-                "name": "${mdx.frontmatter.title}",
-                "item": "${window.location.href}"
-              }]
-            }
-          `,
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Blog",
+              "item": "https://webanimation.blog/blog"
+            },{
+              "@type": "ListItem",
+              "position": 2,
+              "name": "${mdx.frontmatter.title}",
+              "item": "${
+                typeof window !== 'undefined' ? window.location.href : null
+              }"
+            }]
+          }
+        `,
         }}
       />
 
