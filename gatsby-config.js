@@ -1,17 +1,23 @@
 module.exports = {
   siteMetadata: {
     title: `Portfolio`,
-    titleTemplate: 'Mohammed Mulazada',
-    siteUrl: `https://www.mohammedmulazada.com`,
-    description: `This is the portfolio of Mohammed Mulazada, an Amsterdam based web developer.`,
-    author: `@thisismoniac`,
+    titleTemplate: 'Mees',
+    siteUrl: `https://webanimation.blog`,
+    description: `This is where @meesrttn writes about animation on the web.`,
+    author: `@meesrttn`,
   },
   plugins: [
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        // replace "UA-XXXXXXXXX-X" with your own Tracking ID
-        trackingId: 'UA-90488054-3',
+        trackingId: 'UA-118352256-2',
+        anonymize: true,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-google-adsense`,
+      options: {
+        publisherId: `ca-pub-3898059025393476`,
       },
     },
     `gatsby-plugin-styled-components`,
@@ -38,6 +44,7 @@ module.exports = {
         ],
       },
     },
+    'gatsby-remark-reading-time',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -50,13 +57,6 @@ module.exports = {
       options: {
         name: `blog`,
         path: `${__dirname}/content/blog/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `work`,
-        path: `${__dirname}/content/work/`,
       },
     },
     {
@@ -88,8 +88,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-robots-txt',
       options: {
-        host: 'https://www.mohammedmulazada.com',
-        sitemap: 'https://www.mohammedmulazada.com/sitemap.xml',
+        host: 'https://webanimation.blog',
+        sitemap: 'https://webanimation.blog/sitemap.xml',
         policy: [{ userAgent: '*', allow: '/' }],
       },
     },

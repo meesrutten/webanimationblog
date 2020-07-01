@@ -1,0 +1,5 @@
+{
+	"autoimport.filesToScan": "**/*.{ts,tsx,js,jsx}",
+	"autoimport.showNotifications": true,
+	"telemetry.enableTelemetry": false
+}

@@ -1,5 +1,7 @@
 .AnimatedDarkModeToggler {
   cursor: pointer;
+  position: absolute;
+  right: 5%;
   > input {
     opacity: 0;
     height: 1px;

@@ -12,8 +12,8 @@ const Progress = props => {
       scroll;
 
     function update() {
-      scroll = ((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight)) * 100;
-      progressBar.current.style.setProperty('--scroll', scroll + '%');
+      scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight);
+      progressBar.current.style.setProperty('--scroll', scroll);
     }
     document.addEventListener('scroll', update);
 

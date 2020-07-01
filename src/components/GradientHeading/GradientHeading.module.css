@@ -1,27 +1,27 @@
 .GradientHeading {
-  background-image: var(--color-radialGradient);
+  /* background-image: var(--color-radialGradient);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  line-height: 0.9;
+  line-height: 0.9; */
   transition: background-color 225ms ease;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: 700;
   white-space: normal;
   font-size: 4.8rem;
-  animation: hue 10s infinite alternate;
+  /* animation: hue 10s infinite alternate; */
 
   @media (min-width: 768px) {
-    font-size: 9.375rem;
+    font-size: 4rem;
   }
 }
 
 .GradientHeading-h2 {
-  font-size: 4.8rem;
+  font-size: 3rem;
 }
 
 .GradientHeading-h3 {
-  font-size: 4.8rem;
+  font-size: 2.5rem;
 }
 
 @keyframes hue {

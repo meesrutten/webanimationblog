@@ -41,7 +41,15 @@
       line-height: 1.1;
     }
 
-    a {
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+    }
+
+    a:not(.card-link) {
       text-decoration: underline;
     }
 
@@ -151,7 +159,7 @@
 
     ol {
       counter-reset: cupcake;
-      padding-left: 32px;
+      padding-left: 0;
     }
     ol li {
       counter-increment: cupcake;

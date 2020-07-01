@@ -136,47 +136,6 @@ code {
   font-family: var(--font-family);
 }
 
-.ocean {
-  height: 5%;
-  width: 101vw;
-  position: absolute;
-  bottom: 0;
-  left: -4px;
-  background: var(--color-radialCoverBackground);
-
-  @media (min-width: 768px) {
-    transform: rotate(-7deg);
-    height: 10%;
-    bottom: 1rem;
-  }
-}
-
-.wave {
-  background: var(--color-radialWaves);
-  position: absolute;
-  top: -197px;
-  width: 6400px;
-  height: 198px;
-  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
-  transform: translate3d(0, 0, 0);
-}
-
-.wave:nth-of-type(2) {
-  top: -175px;
-  animation: wave 7s cubic-bezier(0.36, 0.45, 0.63, 0.53) -0.125s infinite,
-    swell 7s ease -1.25s infinite;
-  opacity: 1;
-}
-
-@keyframes wave {
-  0% {
-    margin-left: 0;
-  }
-  100% {
-    margin-left: -1600px;
-  }
-}
-
 @keyframes swell {
   0%,
   100% {

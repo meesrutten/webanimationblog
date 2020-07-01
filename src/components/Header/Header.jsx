@@ -15,10 +15,10 @@ const Header = () => {
           <p className="hidden">Go back to the homepage</p>
           <MoniacLogo
             className={containerStyles.MoniacLogo}
-            alt="The personal logo of Mohammed Mulazada"
+            alt="The personal logo of Mees"
           />
           <aside className="ml-4 mb-2">
-            <h1 className="text-base whitespace-no-wrap">Mohammed Mulazada</h1>
+            <h1 className="text-base whitespace-no-wrap">Mees</h1>
             <h2 className="text-base whitespace-no-wrap font-normal">
               Front-end Developer
             </h2>
@@ -28,8 +28,7 @@ const Header = () => {
         <div className="-ml-2 mt-8">
           <h2>Welcome</h2>
           <p className="max-w-sm font-normal">
-            This is the portfolio of Mohammed Mulazada, a Web Developer based in
-            Amsterdam.
+            This is the portfolio of Mees, a Web Developer based in Amsterdam.
           </p>
         </div>
       </div>

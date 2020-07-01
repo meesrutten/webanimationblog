@@ -1,26 +1,27 @@
-import redWaves from './images/redwaves.svg';
-import blueWaves from './images/bluewaves.svg';
-
 export const COLORS = {
   text: {
-    light: 'black', // white
-    dark: 'white', // near-black
+    light: '#111', // white
+    dark: '#fefefe', // near-black
   },
   background: {
-    light: '#ffffff', // white
-    dark: '#000000', // navy navy blue
+    light: '#fefefe', // white
+    dark: '#111', // navy navy blue
   },
   backgroundHighlight: {
-    light: '#ffffff',
+    light: '#fefefe',
     dark: '#182635',
   },
   progress: {
     light: '#f15b74',
     dark: '#21b3ff',
   },
+  progressDark: {
+    light: '#5021ff',
+    dark: '#5021ff',
+  },
   darkModeToggle: {
     light: '#333333',
-    dark: '#ffffff',
+    dark: '#fefefe',
   },
   codeBlock: {
     light: 'hsl(225, 16%, 90%)',
@@ -29,10 +30,6 @@ export const COLORS = {
   radialGradient: {
     dark: 'linear-gradient(180deg, #5b5cf1, #21b3ff)',
     light: 'linear-gradient(to bottom, #f15b74, #ff6021)',
-  },
-  radialWaves: {
-    dark: `url(${blueWaves}) repeat-x`,
-    light: `url(${redWaves}) repeat-x`,
   },
   radialCoverBackground: {
     light: '#f15b74',

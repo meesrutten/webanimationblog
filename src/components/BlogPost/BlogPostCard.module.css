@@ -4,5 +4,8 @@
 
 .BlogPostBody {
   background-color: var(--color-backgroundHighlight);
+  /* background: linear-gradient(rgb(48, 50, 62), rgb(30, 31, 42)) 0% 0% / cover; */
+  box-shadow: var(--color-text) 0px 26px 30px -10px,
+    var(--color-text) 0px 16px 10px -10px;
   transition: color 225ms ease-in-out, background-color 225ms ease-in-out;
 }

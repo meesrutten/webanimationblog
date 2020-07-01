@@ -1,48 +1,58 @@
 import React from 'react';
-
-import Layout from '../components/layout';
-import SEO from '../components/seo';
-import Header from '../components/Header/Header';
-import GradientHeading from '../components/GradientHeading/GradientHeading';
-import PortfolioCard from '../components/PortfolioCard/PortfolioCard';
 import { graphql } from 'gatsby';
+import Layout from '../components/layout';
+import { Footer } from '../components/Footer';
+import BlogLayout from '../Layouts/BlogLayout';
+import GradientHeading from '../components/GradientHeading/GradientHeading';
+import { BlogSearchContainer } from '../components/BlogPost/BlogSearchContainer';
+import SEO from '../components/seo';
+import { motion } from 'framer-motion';
 
-const IndexPage = props => {
-  const allWork = props.data.allWork.edges;
+const BlogIndex = ({ data, location }) => {
+  const { edges: posts } = data.allMdx;
 
   return (
-    <Layout>
-      <SEO title="Portfolio" />
-      <Header />
-
-      <div className="max-w-screen-xl mx-auto">
-        <div className="px-10 pt-16">
-          <GradientHeading headingLevel={3}>
-            My <br /> work
-          </GradientHeading>
-        </div>
-
-        <div className="grid md:grid-flow-dense grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 p-8">
-          {renderWorkPosts(allWork)}
-        </div>
-      </div>
+    <Layout location={location}>
+      <SEO title="webanimation.blog" />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: `
+        {
+          "@context": "http://schema.org",
+          "@type": "WebSite",
+          "name": "webanimation.blog",
+          "url": "https://webanimation.blog"
+        }
+        `,
+        }}
+      />
+      <BlogLayout>
+        <GradientHeading>webanimation.blog</GradientHeading>
+        <BlogSearchContainer posts={posts} homepage />
+      </BlogLayout>
+      <Footer />
     </Layout>
   );
 };
 
 export const pageQuery = graphql`
-  query workIndex {
-    allWork: allMdx(filter: { fields: { instance: { eq: "work" } } }) {
+  query blogIndex {
+    allMdx(filter: { fields: { instance: { eq: "blog" } } }) {
       edges {
         node {
           id
           excerpt(truncate: false, pruneLength: 100)
           frontmatter {
             title
-            togetherWith
-            togetherWithUrl
-            excerpt
-            workUrl
+            date
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 400, quality: 60) {
+                  ...GatsbyImageSharpFluid_withWebp
+                }
+              }
+            }
           }
           fields {
             slug
@@ -52,14 +62,4 @@ export const pageQuery = graphql`
     }
   }
 `;
-
-export default IndexPage;
-
-function renderWorkPosts(allWork) {
-  return allWork.map((input, i, allWork, { node: work } = input) => (
-    <PortfolioCard
-      key={`${work.frontmatter.title} - ${i}`}
-      {...work.frontmatter}
-    />
-  ));
-}
+export default BlogIndex;

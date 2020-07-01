@@ -1,0 +1,119 @@
+---
+title: Beginner guide to web animation to get started
+undertitle: In this article I want to talk about the very basics of web animation
+featuredImage: ../../src/images/basics.jpg
+imgCredit: https://dribbble.com/shots/5901915-Paper-cut-Vector-illustration
+date: '2020-07-01'
+#YYYY-MM-DD
+dateCreated: '2020-07-01'
+datePublished: '2020-07-01'
+dateModified: '2020-07-01'
+---
+
+import { CodepenEmbed } from '../../src/components/codepen';
+import { ToC } from '../../src/templates/blog.js';
+
+<ToC mdx={props.mdx} slugger={props.slugger} />
+
+> A Creative Front-End Developer or Motion Developer will make a UI or concept come to life on the web. This blog should teach everyone (especially me) a lot about web animation.
+
+## What can you build with web animation?
+
+<CodepenEmbed id={'oyzadW'} />
+
+You can build some really fun, pretty and impressive experiences with web animation.
+But most of all it gives you as a developer or designer a way to **tell a story**, which involves even more senses as typical text.
+
+As animation means _the state of being full of life_, we are literally conveying living interfaces and experiences to our users.
+
+Here's another example of where I tried to tell a story, a rather boring story actually.
+
+<CodepenEmbed id={'MGezRK'} />
+
+---
+
+## Getting started
+
+Currently I'm assuming you already know a little bit of HTML, CSS and maybe JavaScript.
+If you don't, but you would like to learn about it; Google is your new best friend.
+
+I'm going to show to basic CodePen demo's and will guide you through the code!
+All of these pens will be in plain HTML, CSS and JavaScript. (The CSS might be SCSS sometimes)
+
+## Animation with CSS properties
+
+### Writing some HTML
+
+Let's say we have this button.
+
+```html
+<div>
+  <button type="button">Hover Hold Release!</button>
+</div>
+```
+
+We would want to make the button reactive to certain gestures.
+
+> Affordances are properties of objects which show users the actions they can take. Users should be able to perceive affordances without having to consider how to use the items. For instance, a button can be designed to look as if it needs to be turned or pushed.
+
+Usually when we press a button, we push it further away from us; resulting in us perceiving that it's smaller.
+
+Let's do that.
+
+### Writing some CSS
+
+In a CSS file we can add this rule:
+
+```css
+button:active {
+  transform: scale(0.9);
+}
+```
+
+This makes it so that when we press a button it reduces in size.
+
+Since we can not make websites indentical copies of the physical world, we have states like _hover_.
+Hover will enable us to add styles to an element when you hover your cursor on the element.
+
+In a CSS file we can add this rule:
+
+```css
+button:hover {
+  background-color: goldenrod;
+  transform: scale(1.05);
+}
+```
+
+When you start clicking and hovering you might wonder why there is no animating going on.
+That is because we need to tell the HTML element that it will have to transition between certain values during certain states.
+
+```css
+button {
+  transition-delay: 0s;
+  transition-duration: 150ms;
+  transition-property: transform, background-color;
+  transition-timing-function: ease-in-out;
+}
+```
+
+or use the shorthand, which will save you fingers in the long run:
+
+```css
+button {
+  transition: transform 150ms ease-in-out, background-color 150ms ease-in-out;
+}
+```
+
+> Note: Always try to use CSS [transform](https://developer.mozilla.org/en-US/docs/Web/CSS/transform) and [opacity](https://developer.mozilla.org/en-US/docs/Web/CSS/opacity), since these CSS properties enable GPU acceleration. If you want to know why, [find out here](https://developers.google.com/web/fundamentals/performance/rendering).
+
+When you combine these three code samples and add some pretty styling, you may end with something like this:
+
+### Final demo
+
+<CodepenEmbed id={'BajmWyV'} />
+
+---
+
+### Thanks for reading!
+
+This was my very first blog post so I wanted to keep it simple (for me). I hope someone somewhere learned something via this post!

@@ -1,14 +1,14 @@
-import React from "react"
-import "./BlogContentLayout.css"
+import React from 'react';
+import './BlogContentLayout.css';
 
 const BlogContentLayout = props => {
-  const { children } = props
+  const { children } = props;
 
   return (
-    <div className="BlogContentLayout container mx-auto py-8 lg:py-24 px-8 flex justify-center">
+    <article className="BlogContentLayout container flex flex-col justify-center mx-auto">
       {children}
-    </div>
-  )
-}
+    </article>
+  );
+};
 
-export default BlogContentLayout
+export default BlogContentLayout;

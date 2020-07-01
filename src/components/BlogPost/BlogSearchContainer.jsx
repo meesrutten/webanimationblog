@@ -3,7 +3,7 @@ import ZeroState from '../../images/blog_empty_state.inline.svg';
 import { MemoizedBlogPostCardList } from './BlogPostCardList';
 
 export const BlogSearchContainer = props => {
-  const { posts } = props;
+  const { posts, homepage = false } = props;
 
   const [allPosts, setAllPosts] = useState(() => posts);
   const [search, setSearch] = useState('');
@@ -27,29 +27,30 @@ export const BlogSearchContainer = props => {
   }, [search, posts]);
 
   return (
-    <>
+    <React.Fragment>
       <form role="search" onSubmit={event => event.preventDefault()}>
         <label>
-          Search
+          <span className="text-xs text-white-700">Search</span>
           <input
             aria-label="On this page"
             name="search"
             className="shadow appearance-none border rounded w-full py-2 px-3 mb-8
     text-gray-700 leading-tight focus:outline-none focus:shadow-outline max-w-sm flex"
-            type="text"
+            type="search"
             value={search}
+            placeholder="Search posts"
             onChange={e => setSearch(e.target.value)}
           />
         </label>
       </form>
-      {renderBlogPostsORZeroState(allPosts)}
-    </>
+      {renderBlogPostsORZeroState(allPosts, homepage)}
+    </React.Fragment>
   );
 };
 
-function renderBlogPostsORZeroState(allPosts) {
+function renderBlogPostsORZeroState(allPosts, homepage) {
   if (allPosts.length) {
-    return renderBlogPosts(allPosts);
+    return renderBlogPosts(allPosts, homepage);
   }
 
   return renderZeroState();
@@ -64,6 +65,6 @@ function renderZeroState() {
   );
 }
 
-function renderBlogPosts(allPosts) {
-  return <MemoizedBlogPostCardList posts={allPosts} />;
+export function renderBlogPosts(allPosts, homepage) {
+  return <MemoizedBlogPostCardList posts={allPosts} homepage={homepage} />;
 }

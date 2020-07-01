@@ -1,17 +1,20 @@
 :root {
-  --scroll: 0%;
+  --scroll: 0;
 }
 
 .Progress {
+  transform: scaleX(var(--scroll));
+  transform-origin: left;
   background: linear-gradient(
-    to right,
-    var(--color-progress) var(--scroll),
-    transparent 0
+    to left,
+    var(--color-progress),
+    var(--color-progressDark)
   );
-  background-repeat: no-repeat;
   width: 100%;
-  height: 4px;
+  height: 2px;
   z-index: 1;
   position: fixed;
-  top: 0;
+  bottom: 0;
+  left: 0;
+  transition: transform 100ms ease-in-out;
 }
