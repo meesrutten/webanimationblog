@@ -4,7 +4,7 @@
   width: 100%;
   object-fit: cover;
   opacity: 0.35;
-  filter: blur(3px);
+  filter: blur(1px);
   position: absolute !important;
   top: 4rem;
   left: 0;

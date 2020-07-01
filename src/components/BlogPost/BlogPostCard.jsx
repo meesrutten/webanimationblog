@@ -17,7 +17,7 @@ const BlogPostCard = React.memo(
         <Img
           alt={title}
           style={{
-            filter: 'blur(3px)',
+            filter: 'blur(1px)',
           }}
           className={`w-full shadow-none rounded-none${
             homepage ? ' h-56' : ''
