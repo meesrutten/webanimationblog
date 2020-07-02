@@ -224,26 +224,28 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
               >
                 by Mees Rutten | {new Date(mdx.frontmatter.date).toDateString()}
               </footer>
-              <motion.p
-                className="absolute"
-                initial="exit"
-                animate="enter"
-                exit="exit"
-                variants={fade}
-                transition={{
-                  delay: 3,
-                  duration: 1,
-                }}
-                style={{
-                  bottom: '-1rem',
-                  right: '0.5rem',
-                  fontSize: '.675rem',
-                  margin: 0,
-                  opacity: 0.35,
-                }}
-              >
-                source: {mdx.frontmatter.imgCredit}
-              </motion.p>
+              {mdx.frontmatter.imgCredit.length ? (
+                <motion.p
+                  className="absolute"
+                  initial="exit"
+                  animate="enter"
+                  exit="exit"
+                  variants={fade}
+                  transition={{
+                    delay: 3,
+                    duration: 1,
+                  }}
+                  style={{
+                    bottom: '-1rem',
+                    right: '0.5rem',
+                    fontSize: '.675rem',
+                    margin: 0,
+                    opacity: 0.35,
+                  }}
+                >
+                  source: {mdx.frontmatter.imgCredit}
+                </motion.p>
+              ) : null}
             </motion.div>
           </div>
           <motion.div
@@ -312,9 +314,10 @@ export const pageQuery = graphql`
       frontmatter {
         title
         undertitle
-        dateCreated
-        datePublished
-        dateModified
+        date(formatString: "MMMM DD, YYYY")
+        dateCreated(formatString: "MMMM DD, YYYY")
+        datePublished(formatString: "MMMM DD, YYYY")
+        dateModified(formatString: "MMMM DD, YYYY")
         featuredImage {
           childImageSharp {
             fluid(maxWidth: 700, quality: 60) {
@@ -323,7 +326,6 @@ export const pageQuery = graphql`
           }
         }
         imgCredit
-        date
       }
     }
     allMdx(filter: { fields: { instance: { eq: "blog" } } }, limit: 3) {
@@ -333,10 +335,10 @@ export const pageQuery = graphql`
           excerpt(truncate: false, pruneLength: 100)
           frontmatter {
             title
-            date
-            dateCreated
-            datePublished
-            dateModified
+            date(formatString: "MMMM DD, YYYY")
+            dateCreated(formatString: "MMMM DD, YYYY")
+            datePublished(formatString: "MMMM DD, YYYY")
+            dateModified(formatString: "MMMM DD, YYYY")
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 400, quality: 60) {

@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const BlogPostCard = React.memo(
   props => {
     const { title, img, excerpt, date, homepage = false } = props;
-
+    console.log(date);
     return (
       <motion.article
         className={
@@ -18,19 +18,21 @@ const BlogPostCard = React.memo(
           alt={title}
           style={{
             filter: 'blur(1px)',
+            height: homepage ? '20rem' : undefined,
+            maxHeight: '30vh',
           }}
-          className={`w-full shadow-none rounded-none${
-            homepage ? ' h-56' : ''
-          }`}
+          className={`w-full shadow-none rounded-none`}
           fluid={img}
         />
         <section className={containerStyles.BlogPostBody + ' px-6 py-4'}>
-          <motion.h2 layoutId="layoutTitle" className="font-bold text-xl">
+          <motion.h2
+            layoutId="layoutTitle"
+            className="font-bold text-base md:text-xl"
+          >
             {title}
           </motion.h2>
-          <p className="text-gray-600 mb-2">{date || 'Aug 18'}</p>
-
-          <p className="text-base">{excerpt}</p>
+          <p className="text-gray-600 mb-2">{date || 'No date found'}</p>
+          <p className="text-sm md:text-base">{excerpt}</p>
         </section>
       </motion.article>
     );

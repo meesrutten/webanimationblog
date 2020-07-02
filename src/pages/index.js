@@ -38,14 +38,17 @@ const BlogIndex = ({ data, location }) => {
 
 export const pageQuery = graphql`
   query blogIndex {
-    allMdx(filter: { fields: { instance: { eq: "blog" } } }) {
+    allMdx(
+      sort: { fields: [frontmatter___datePublished], order: DESC }
+      filter: { fields: { instance: { eq: "blog" } } }
+    ) {
       edges {
         node {
           id
           excerpt(truncate: false, pruneLength: 100)
           frontmatter {
             title
-            date
+            datePublished(formatString: "MMMM DD, YYYY")
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 400, quality: 60) {

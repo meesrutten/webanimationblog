@@ -66,7 +66,7 @@ export const Footer = () => (
           </svg>
         </a>
       </div>
-      <p className="inline-flex text-black-500">
+      <p className="inline text-black-500">
         Special thanks to{' '}
         <a
           target="_blank"

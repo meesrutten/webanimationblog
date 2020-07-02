@@ -48,7 +48,7 @@ export const BlogPostCardList = props => {
                 img={
                   posts[0].node.frontmatter.featuredImage.childImageSharp.fluid
                 }
-                date={posts[0].node.frontmatter.date}
+                date={posts[0].node.frontmatter.datePublished}
                 homepage={true}
               />
             </Link>
@@ -81,7 +81,7 @@ export const BlogPostCardList = props => {
                     title={post.frontmatter.title}
                     excerpt={post.excerpt}
                     img={post.frontmatter.featuredImage.childImageSharp.fluid}
-                    date={post.frontmatter.date}
+                    date={post.frontmatter.datePublished}
                   />
                 </Link>
               </motion.li>
