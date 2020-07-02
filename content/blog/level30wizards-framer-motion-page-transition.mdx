@@ -1,0 +1,293 @@
+---
+title: How I built the Level30Wizards page transition with Gatsby and Framer Motion
+undertitle: In this article we learn to implement the Level30Wizards page transition with Framer Motion and Gatsby
+featuredImage: ../../src/images/level30-page-transition-1.png
+imgCredit: ''
+date: 2020-07-02
+dateCreated: 2020-07-02
+datePublished: 2020-07-02
+dateModified: 2020-07-02
+---
+
+import { ToC } from '../../src/templates/blog.js';
+
+<ToC mdx={props.mdx} slugger={props.slugger} />
+
+## Tech stack
+
+The [Level30Wizards website](https://Level30Wizards.com) is built with:
+
+- [Gatsby](https://www.gatsbyjs.org/) for templating, routing, etc.
+- [Framer Motion](https://www.framer.com/motion/) for animation
+- [EmotionCSS](https://emotion.sh/docs/introduction) to write normal CSS, nest selectors and componentize styles
+
+## Code!
+
+I'll share and explain the code we used to achieve the page transition effect (it's kind of hacky, but bear with me 🐻).
+
+### Layout
+
+The layout file and component holds all content of all pages.<br/>
+That's why we kept it as generic as possible.<br/>
+In the Layout component we add `<PageTransition />`<br/>
+
+```jsx
+const Layout = ({ children }) => {
+  return (
+    <TransitionContextProvider>
+      <div
+        style={{
+          margin: `0 auto`,
+          minHeight: 0,
+        }}
+      >
+        <main
+          style={{
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            height: '100vh',
+            minHeight: 0,
+          }}
+        >
+          {children}
+        </main>
+      </div>
+      <PageTransition />
+    </TransitionContextProvider>
+  );
+};
+```
+
+### Page Transition component
+
+```jsx
+const PageTransition = () => {
+  const { transition } = useContext(TransitionContext);
+  const [playState, setPlayState] = useState(transition);
+
+  useEffect(() => {
+    setPlayState(transition);
+  }, [transition]);
+
+  return (
+    <AnimatePresence>
+      {playState && (
+        <motion.div
+          variants={parentVariants}
+          initial="visible"
+          animate="hidden"
+          exit="visible"
+          aria-hidden={true}
+          css={css`
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 11;
+            pointer-events: none;
+            transform-origin: left;
+
+            > div {
+              height: 25vh;
+              margin-top: -5vh;
+              width: 100vw;
+              background-color: #3466bf;
+              transform-origin: right;
+            }
+            > figure {
+              position: fixed;
+              top: calc(50% - 8rem);
+              left: calc(50% - 8rem);
+              transform-origin: center;
+              width: 16rem;
+              height: 16rem;
+              z-index: 12;
+              padding: 0;
+              margin: 0;
+              svg {
+                width: 100%;
+                height: 100%;
+              }
+            }
+          `}
+        >
+          <motion.div variants={childVariants} exit={'visible'} key={0}>
+            {' '}
+          </motion.div>
+          <motion.div variants={childVariants} exit={'visible'} key={1}>
+            {' '}
+          </motion.div>
+          <motion.div variants={childVariants} exit={'visible'} key={2}>
+            {' '}
+          </motion.div>
+          <motion.div variants={childVariants} exit={'visible'} key={3}>
+            {' '}
+          </motion.div>
+          <motion.div variants={childVariants} exit={'visible'} key={4}>
+            {' '}
+          </motion.div>
+          <motion.figure variants={childVariantHead} exit={'visible'} key={5}>
+            <HeadLogo />
+          </motion.figure>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+```
+
+### TransitionContextProvider
+
+The `TransitionContextProvider` provides a state to it's children.<br/>
+This state is used to toggle the `PageTransition`.<br/>
+You can see that in the `<PageTransition>` component we get the shared state with `useContext` and use that value to set the playstate.<br/>
+With a `useEffect` hook we update the playstate to the correct value.<br/>
+
+```jsx
+export const TransitionContext = React.createContext(undefined);
+
+export const TransitionContextProvider = props => {
+  const [transition, setTransition] = useState(true);
+
+  return (
+    <TransitionContext.Provider
+      value={{
+        transition: transition,
+        setTransition: setTransition,
+      }}
+    >
+      {props.children}
+    </TransitionContext.Provider>
+  );
+};
+```
+
+---
+
+## Framer Motion
+
+Framer Motion let's us create reusable transitions. It also handles staggers, staggerDirection and has built-in easing.<br/>
+<3 Framer Motion.<br/>
+We used the following variants to define our transition:
+
+```jsx
+export const parentVariants = {
+  visible: {
+    transition: {
+      ease: 'circInOut',
+      staggerChildren: 0.2,
+      staggerDirection: -1,
+    },
+  },
+  hidden: {
+    transition: {
+      ease: 'circInOut',
+      staggerChildren: 0.2,
+      staggerDirection: -1,
+    },
+  },
+};
+
+export const childVariants = {
+  visible: {
+    scaleX: 1,
+    transition: {
+      ease: 'circInOut',
+      duration: 1,
+    },
+  },
+  hidden: {
+    scaleX: 0,
+    transition: {
+      ease: 'circInOut',
+      duration: 1,
+    },
+  },
+};
+
+export const childVariantHead = {
+  visible: {
+    scale: 1,
+    rotate: 0,
+    transition: {
+      ease: 'easeInOut',
+      duration: 0.5,
+      delay: 1.2,
+    },
+  },
+  hidden: {
+    scale: 0,
+    rotate: 15,
+    transition: {
+      ease: 'easeInOut',
+      duration: 0.5,
+      delay: 0.4,
+    },
+  },
+};
+```
+
+## Trigger!
+
+We built a wrapper around the Gatsby `Link` component.<br />
+This is where it gets hacky, we use a setTimeout to trigger the `<PageTransition>` animation state.<br />
+
+This is how it works:
+
+1. The user clicks on the TLink
+2. We prevent the browser from navigating
+3. We toggle the setTransition to false, triggering the animation to reverse
+4. We use a setTimeout to delay the navigation for the time it takes to complete the animation (bad practice, i'm sorry)
+5. The user navigates
+6. The `<PageTransition>` component updates the playstate to `true` and reverts the animation
+
+```jsx
+import React, { useContext } from 'react';
+import { css } from '@emotion/core';
+import { Link, navigate } from 'gatsby';
+import { TransitionContext } from './layout';
+
+const transitionStyles = css`
+  color: #d8cf25;
+  text-decoration: none;
+  border-bottom: 2px solid currentColor;
+  font-weight: bold;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+`;
+
+export const TLink = props => {
+  const { to, children, styles } = props;
+  const { setTransition } = useContext(TransitionContext);
+
+  return (
+    <Link
+      to={to}
+      title={to === '/' ? 'Home' : to.replace(/\//g, ' ')}
+      css={[transitionStyles, styles]}
+      onClick={e => {
+        e.preventDefault();
+
+        setTransition(false);
+        setTimeout(() => {
+          navigate(to);
+        }, 1800);
+      }}
+    >
+      {children}
+    </Link>
+  );
+};
+```
+
+### Final demo
+
+You can check out the result here: <br />
+[Level30Wizards](https://level30wizards.com)
+
+---
+
+### Thanks for reading!
+
+I hope someone somewhere learned something via this post! If you did, please consider sharing the article.

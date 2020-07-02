@@ -41,6 +41,7 @@ export const BlogPostCardList = props => {
               to={posts[0].node.fields.slug}
               aria-label={`Go to the blog post about ${posts[0].node.frontmatter.title}`}
               title={`Go to the blog post about ${posts[0].node.frontmatter.title}`}
+              className="block"
             >
               <BlogPostCard
                 title={posts[0].node.frontmatter.title}
@@ -75,7 +76,7 @@ export const BlogPostCardList = props => {
                   to={post.fields.slug}
                   aria-label={`Go to the blog post about ${post.frontmatter.title}`}
                   title={`Go to the blog post about ${post.frontmatter.title}`}
-                  className="card-link"
+                  className="card-link block"
                 >
                   <BlogPostCard
                     title={post.frontmatter.title}

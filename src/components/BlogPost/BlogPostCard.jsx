@@ -17,7 +17,6 @@ const BlogPostCard = React.memo(
         <Img
           alt={title}
           style={{
-            filter: 'blur(1px)',
             height: homepage ? '20rem' : undefined,
             maxHeight: '30vh',
           }}
