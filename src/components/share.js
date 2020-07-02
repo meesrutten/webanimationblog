@@ -23,8 +23,8 @@ export const Share = props => {
     if (typeof window !== 'undefined') {
       if (hasSharePossibilities()) {
         window.navigator['share']({
-          title: 'Roomfy',
-          text: 'Bekijk deze woning eens op Roomfy!',
+          title: 'webanimation.blog',
+          text: 'Read about web animation by @meesrttn',
           url: `${window.location.href}`,
         })
           .then(() => {
