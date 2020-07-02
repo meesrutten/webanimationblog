@@ -87,7 +87,11 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
           name="description"
           content={`A blog post about ${mdx.frontmatter.title}`}
         />
-        <meta name="author" content="Mees" />
+        <meta name="author" content="Mees Rutten" />
+        <link
+          rel="canonical"
+          href={`https://webanimation.blog${mdx.fields.slug}`}
+        />
       </Helmet>
       <script
         type="application/ld+json"
@@ -175,9 +179,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
               "@type": "ListItem",
               "position": 2,
               "name": "${mdx.frontmatter.title}",
-              "item": "${
-                typeof window !== 'undefined' ? window.location.href : null
-              }"
+              "item": "https://webanimation.blog${mdx.fields.slug}"
             }]
           }
         `,

@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Portfolio`,
-    titleTemplate: 'Mees',
+    title: `webanimation.blog`,
+    titleTemplate: 'webanimation.blog',
     siteUrl: `https://webanimation.blog`,
     description: `This is where @meesrttn writes about animation on the web.`,
     author: `@meesrttn`,
