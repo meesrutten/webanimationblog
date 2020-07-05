@@ -8,7 +8,7 @@ export const CodepenEmbed = ({ id }) => {
       style={{ width: '100%' }}
       scrolling="no"
       loading="lazy"
-      title="BaoERMd"
+      title={id}
       src={`https://codepen.io/meesrutten/embed/preview/${id}?height=265&theme-id=dark&default-tab=html,result`}
       frameBorder="no"
       allowFullScreen={true}

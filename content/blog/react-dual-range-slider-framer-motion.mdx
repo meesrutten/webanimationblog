@@ -1,21 +1,24 @@
 ---
-title: How to: Dual range slider in React with Framer Motion
+title: 'How to: Dual range slider in React with Framer Motion'
 undertitle: We will learn how to implement a range slider with two thumbs with Framer Motion
 featuredImage: ../../src/images/dual-range-slider.png
 imgCredit: ''
 date: 2020-07-04
 dateCreated: 2020-07-04
-datePublished: 2020-07-04
-dateModified: 2020-07-04
+datePublished: 2020-07-05
+dateModified: 2020-07-05
 ---
 
 import { ToC } from '../../src/templates/blog.js';
+import { CodeSandbox } from '../../src/components/codesandbox';
 
 <ToC mdx={props.mdx} slugger={props.slugger} />
 
+In this article I'll show how we achieved to create a dual range slider from scratch in React with Framer Motion.
+
 ## Tech stack
 
-This component was built while working at [Level30Wizards](https://Level30Wizards.com), the Tech Stack we used to achieve this is:
+This component was built at [Level30Wizards](https://Level30Wizards.com), the Tech Stack we used to achieve this is:
 
 - [React](https://reactjs.org/) for markup, templating, routing, etc.
 - [Framer Motion](https://www.framer.com/motion/) for animation
@@ -293,7 +296,9 @@ export const Slider: React.FC<Props> = props => {
 };
 ```
 
-![The Dual Thumb Slider component](../../src/images/dual-range-slider.png)
+So... CodeSandbox hates me, not sure why but the dragging is shocky and stops. But in our stack it works like a charm!
+
+<CodeSandbox id={'dual-slider-react-f71t4'} />
 
 ### Final words
 
