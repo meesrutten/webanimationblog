@@ -151,45 +151,45 @@ When you use `EmotionCSS`, you can use props to determine styling.
 An example of this can see seen in the CSS block of the `Track`. There we calculate a `linear-gradient` based on the position of the thumbs.
 
 ```jsx
-const Knob = css`
-  width: ${knobSize}rem;
-  height: ${knobSize}rem;
-  border-radius: 50%;
-  background-color: ${theme.colors.white};
-  top: calc(-50% - 0.5rem);
-  position: absolute;
-  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
-  cursor: pointer;
+const Knob = styled.div`
+  ${({ knobSize }: any) => css`
+width: ${knobSize}rem;
+height: ${knobSize}rem;
+border-radius: 50%;
+background-color: white;
+top: calc(-50% - 0.5rem);
+position: absolute;
+box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.15);
+cursor: pointer;
 
-  &:nth-of-type(2) {
-    left: -2rem;
-  }
+&:nth-of-type(2) {
+  left: -2rem;
+`}
 `;
 
-const Track = css`
-  width: ${trackWidth}rem;
-  height: 0.5rem;
-  background-color: ${theme.colors.blue};
-  // This gradient contains a calculation for the slider track.
-  background: linear-gradient(
-    to right,
-    ${theme.colors.lightBlue} 0%,
-    ${theme.colors.lightBlue} ${Number(
-        (100 * (knobX / trackWidthInPx)).toFixed(2)
-      )}%,
-    ${theme.colors.blue} ${Number(100 * (knobX / trackWidthInPx) + 8).toFixed(2)}%,
-    ${theme.colors.blue} ${Number(
-        (100 * (knobXSecond / trackWidthInPx)).toFixed(2)
-      ) -
-      8 -
-      0.01}%,
-    ${theme.colors.lightBlue} ${Number(
-        100 * (knobXSecond / trackWidthInPx)
-      ).toFixed(2)}%
-  );
-  border-radius: 0.25rem;
-  position: relative;
-  margin: 1rem 0 2rem;
+// withComponent is from EmotionCSS to use a styled.div with a Framer Motion motion.div
+const AnimatedKnob = Knob.withComponent(motion.div);
+
+const Track = styled(motion.div)`
+  ${({ trackWidth, knobX, knobXSecond, trackWidthInPx }: any) => css`
+    width: ${trackWidth}rem;
+    height: 0.5rem;
+    background-color: #3d5ef8;
+    /* This gradient contains a calculation for the slider track. */
+    background: linear-gradient(
+      to right,
+      #dae3f4 0%,
+      #dae3f4 ${Number((100 * (knobX / trackWidthInPx)).toFixed(2))}%,
+      #3d5ef8 ${Number(100 * (knobX / trackWidthInPx) + 8).toFixed(2)}%,
+      #3d5ef8 ${Number((100 * (knobXSecond / trackWidthInPx)).toFixed(2)) -
+        8 -
+        0.01}%,
+      #dae3f4 ${Number(100 * (knobXSecond / trackWidthInPx)).toFixed(2)}%
+    );
+    border-radius: 0.25rem;
+    position: relative;
+    margin: 1rem 0 2rem;
+  `}
 `;
 
 const Row = styled.div`
@@ -234,6 +234,8 @@ const SliderParentComponent = () => {
 };
 
 //Slider.tsx
+// STYLING COMPONENTS HERE
+
 interface Props {
   max: number; //ex. 4000
   defaultMinValue?: number; // If there is a value already, we use this as placeholder
@@ -290,13 +292,11 @@ export const Slider: React.FC<Props> = props => {
   // A constraintsRef to use set on the track and disallow the knobs to move further than the knob
   const constraintsRef = useRef(null);
 
-  // STYLING COMPONENTS HERE
-
   // HTML/MARKUP HERE
 };
 ```
 
-So... CodeSandbox hates me, not sure why but the dragging is shocky and stops. But in our stack it works like a charm!
+'Big thanks to [@moniac](https://mohammedmulazada.com/) for bugfixing ;)'
 
 <CodeSandbox id={'dual-slider-react-f71t4'} />
 
