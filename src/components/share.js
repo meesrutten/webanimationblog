@@ -70,7 +70,7 @@ export const Share = props => {
         </span>
       </TwitterShareButton>
       <LinkedinShareButton
-        source={socialConfig.config.url}
+        url={socialConfig.config.url}
         className="button mr-4"
         title={socialConfig.config.title}
         summary={socialConfig.config.text}
