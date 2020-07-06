@@ -87,6 +87,10 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
           name="description"
           content={`A blog post about ${mdx.frontmatter.title}`}
         />
+        <meta
+          property="og:image"
+          content="mdx.frontmatter.featuredImage.childImageSharp.fluid.src"
+        />
         <meta name="author" content="Mees Rutten" />
         <link
           rel="canonical"
