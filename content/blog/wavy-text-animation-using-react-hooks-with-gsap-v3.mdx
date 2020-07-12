@@ -1,0 +1,169 @@
+---
+title: 'Wavy Text Animation using React Hooks with GSAP v3'
+undertitle: We will learn to use GSAP v3 with React hooks, next to that i'll build my own textsplitter.
+featuredImage: ../../src/images/ride-the-wave.png
+imgCredit: ''
+date: 2020-07-12
+dateCreated: 2020-07-12
+datePublished: 2020-07-12
+dateModified: 2020-07-12
+---
+
+import { ToC } from '../../src/templates/blog.js';
+import { CodeSandbox } from '../../src/components/codesandbox';
+
+<CodeSandbox
+  id={'wavy-text-animation-using-react-hooks-with-gsap-v3-3doyg'}
+  view="preview"
+/>
+
+<ToC mdx={props.mdx} slugger={props.slugger} />
+
+In this article i'll create a wavy text animation with `React Hooks` and `GSAP v3`. For the example I created my own small text split function. This example should be usable in React frameworks like Gatsby, Next.js, etc.
+
+## Tech stack
+
+- [React](https://reactjs.org/) for markup, templating, routing, etc.
+- [GSAP](https://www.greensock.com/) for animation
+- [EmotionCSS](https://emotion.sh/docs/introduction) to write normal CSS, nest selectors and componentize styles
+
+## Goal
+
+We want to create text that animates on first-load. The text should be split for each letter, then animate once smoothly.
+
+## Markup
+
+First we create a styled element
+
+```jsx
+<div className="App">
+  <WavyTextStyled ref={wavyTextRef}>ride the waaaaaaaave</WavyTextStyled>
+</div>
+```
+
+## CSS
+
+We make the text look pretty with some css. The `font-size` value is based on a `clamp` function used in WebGL.
+The function creates a range between `1600px` and `320px` screenwidth. Within this range it calculates a `font-size` between `64px` and `32px`.
+
+```jsx
+const TextStyled = styled.p`
+  font-size: calc(32px + (64 - 32) * ((100vw - 320px) / (1600 - 320)));
+  font-family: poppins;
+  font-weight: 500;
+  margin: 0;
+  color: white;
+`;
+```
+
+## Using hooks
+
+We need to keep a reference to the text to target it with `GSAP`.
+Next to that, we only want the animation to run on load and once.
+If we give an empty dependecy array to the `useEffect`, it will trigger once.
+
+```jsx
+export default function App() {
+  const wavyTextRef = useRef(null);
+
+  useEffect(() => {
+    // ANIMATION GOES HERE
+  }, []);
+
+  return (
+    <div className="App">
+      <TextStyled ref={wavyTextRef}>ride the waaaaaaaave</TextStyled>
+    </div>
+  );
+}
+```
+
+## Animating with GSAP
+
+To start animating, we want to be sure the ref has been initialised.
+Afterwards, we split the text with the function underneath this codeblock.
+This function will return all letters in the text as `span` elements with some necessary styling.
+
+To start animating, we set the perspective of the `TextStyled` component to 400 to create depth.
+Afterwards we animate the letters `from` certain values
+
+> I'm pretty sure, that gsap.from also does a gsap.set under the hood. This results in the element being set in the starting position on load.
+
+```js
+if (!wavyTextRef.current) return;
+const chars = SplitTextToChars(wavyTextRef.current);
+
+gsap.set(wavyTextRef.current, { perspective: 400 });
+
+gsap.from(
+  chars,
+  {
+    duration: 0.8,
+    opacity: 0,
+    scale: 1,
+    delay: 2,
+    y: -40,
+    rotationX: -90,
+    transformOrigin: '0% 50% -50',
+    ease: 'back',
+    stagger: 0.1,
+  },
+  '+=0'
+);
+```
+
+```js
+function SplitTextToChars(textNode) {
+  const textContent = textNode.textContent;
+  const textSplit = textContent.split('');
+
+  const frag = document.createDocumentFragment();
+  textSplit.forEach((letter, i) => {
+    const span = document.createElement('span');
+    span.textContent = letter;
+    span.style = `${letter === ' ' ? 'min-width: 1rem;' : ''}z-index: ${
+      textSplit.length - i
+    }; position: relative; display: inline-block;`;
+    frag.appendChild(span);
+  });
+  textNode.textContent = '';
+  textNode.appendChild(frag);
+
+  return textNode.children;
+}
+
+export default SplitTextToChars;
+```
+
+## Demo
+
+That's it!
+
+<CodeSandbox
+  id={'wavy-text-animation-using-react-hooks-with-gsap-v3-3doyg'}
+  view="editor"
+/>
+
+## PS.
+
+If you are wondering how you can use GSAP v3 during interaction we can just create functions like this, with `event target` or pass a `reference`:
+
+```jsx
+<button onClick={e => {
+	gsap.to(e.target, {
+		duration: 1,
+		color: green;
+	})
+}}>click!</button>
+```
+
+### Final words
+
+That's it!
+You can link this animation to an `Intersection Observer` to animate while scrolling, or keep it like this to animate when someone navigates.
+
+---
+
+### Thanks for reading!
+
+I hope someone somewhere learned something via this post! If you did, please consider sharing the article.

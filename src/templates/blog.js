@@ -71,6 +71,26 @@ export const ToC = ({ mdx, slugger }) => (
   </nav>
 );
 
+function shuffle(array) {
+  let counter = array.length;
+
+  // While there are elements in the array
+  while (counter > 0) {
+    // Pick a random index
+    let index = Math.floor(Math.random() * counter);
+
+    // Decrease counter by 1
+    counter--;
+
+    // And swap the last element with it
+    let temp = array[counter];
+    array[counter] = array[index];
+    array[index] = temp;
+  }
+
+  return array;
+}
+
 export default function PageTemplate({ location, data: { mdx, allMdx } }) {
   slugger.reset();
   const { edges: posts } = allMdx;
@@ -79,17 +99,39 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
     return node.id !== mdx.id;
   });
 
+  const randomRelatedPosts = shuffle(postsExceptCurrent);
+  if (randomRelatedPosts.length > 3) randomRelatedPosts.length = 3;
+
   return (
     <Layout location={location} showProgressBar={true}>
       <Helmet>
         <title>{mdx.frontmatter.title}</title>
+        <meta name="title" content={mdx.frontmatter.title} />
+        <meta name="description" content={mdx.frontmatter.undertitle} />
+        <meta property="og:type" content="website" />
         <meta
-          name="description"
-          content={`A blog post about ${mdx.frontmatter.title}`}
+          property="og:url"
+          content={`https://webanimation.blog${mdx.fields.slug}`}
         />
+        <meta property="og:title" content={mdx.frontmatter.title} />
+        <meta property="og:description" content={mdx.frontmatter.undertitle} />
         <meta
           property="og:image"
-          content="mdx.frontmatter.featuredImage.childImageSharp.fluid.src"
+          content={mdx.frontmatter.featuredImage.childImageSharp.fluid.src}
+        />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:url"
+          content={`https://webanimation.blog${mdx.fields.slug}`}
+        />
+        <meta property="twitter:title" content={mdx.frontmatter.title} />
+        <meta
+          property="twitter:description"
+          content={mdx.frontmatter.undertitle}
+        />
+        <meta
+          property="twitter:image"
+          content={mdx.frontmatter.featuredImage.childImageSharp.fluid.src}
         />
         <meta name="author" content="Mees Rutten" />
         <link
@@ -203,7 +245,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
               variants={textVariants}
               className="blog-content lg:flex-1 mx-auto py-8 lg:py-24 px-8"
             >
-              <h2>{mdx.frontmatter.title}</h2>
+              <h1>{mdx.frontmatter.title}</h1>
               <p className="mt-2 italic">{mdx.frontmatter.undertitle}</p>
               <div
                 style={{
@@ -286,12 +328,12 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             }}
           />
         </div>
-        {postsExceptCurrent.length ? (
+        {randomRelatedPosts.length ? (
           <div className="lg:flex-1 mx-auto py-8 lg:py-24 px-8">
             <h3 className="font-bold text-xl text-center my-8">
               Other posts you might like
             </h3>
-            {renderBlogPosts(postsExceptCurrent)}
+            {renderBlogPosts(randomRelatedPosts)}
           </div>
         ) : null}
       </BlogContentLayout>
@@ -334,7 +376,7 @@ export const pageQuery = graphql`
         imgCredit
       }
     }
-    allMdx(filter: { fields: { instance: { eq: "blog" } } }, limit: 3) {
+    allMdx(filter: { fields: { instance: { eq: "blog" } } }) {
       edges {
         node {
           id

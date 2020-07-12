@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 
 const BlogIndex = ({ data, location }) => {
   const { edges: posts } = data.allMdx;
-  console.log(posts);
+
   return (
     <Layout location={location}>
       <SEO title="webanimation.blog" />

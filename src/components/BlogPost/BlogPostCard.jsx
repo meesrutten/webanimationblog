@@ -6,7 +6,6 @@ import { motion } from 'framer-motion';
 const BlogPostCard = React.memo(
   props => {
     const { title, img, excerpt, date, homepage = false } = props;
-    console.log(date);
     return (
       <motion.article
         className={
