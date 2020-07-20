@@ -1,0 +1,242 @@
+---
+title: 'Animating with CSS variables and Web Audio'
+undertitle: We will learn to animate elements by utilising web audio and CSS variables
+featuredImage: ../../src/images/web-audio-animation.png
+imgCredit: ''
+date: 2020-07-20
+dateCreated: 2020-07-20
+datePublished: 2020-07-20
+dateModified: 2020-07-20
+---
+
+import { ToC } from '../../src/templates/blog.js';
+import { CodeSandbox } from '../../src/components/codesandbox';
+
+<CodeSandbox id={'web-audio-to-css-variable-animation-0f48n'} view="preview" />
+
+<ToC mdx={props.mdx} slugger={props.slugger} />
+
+In this article i'll recreate a web animation I used for a friend of mine who is a musician. I created his online portfolio filled with web animation, more about that later!
+
+## Tech stack
+
+- HTML for creating element to animate, etc.
+- [P5js](https://p5js.org/) to get 5 values from audio clips
+- CSS Variables, just regular CSS while utilising CSS :root variables
+
+## Goal
+
+We want to recreate the classic audio visualisation bars in a performant way.
+
+## Markup
+
+First we create some bars. We want them to alternate in direction.
+
+```html
+<div class="half-height">
+  <div class="divider">
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+  </div>
+</div>
+<div class="half-height">
+  <div class="divider reverse">
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+    <div class="bar horizontal"></div>
+  </div>
+</div>
+```
+
+> Don't forget to include the P5 library and add-ons you need
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+```
+
+## CSS
+
+Normal CSS!?
+For this example, just regular CSS was fine.
+I created some bars with a gradient background.
+
+```css
+.divider {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.divider.reverse {
+  align-items: flex-start;
+}
+.divider .bar.horizontal {
+  width: 50vw;
+  height: 0.5rem;
+  transition: all 60ms ease-in-out;
+  background: linear-gradient(
+    to left,
+    #23074d,
+    #6800ed
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  transform-origin: right;
+  opacity: 0.85;
+}
+.divider.reverse .bar.horizontal {
+  transform-origin: left;
+}
+
+.bar-container {
+  display: flex;
+  align-items: flex-end;
+  height: 100vh;
+}
+```
+
+## CSS Variables
+
+We defined the variables we need:
+
+```css
+:root {
+  --mapBass: 0;
+  --mapTremble: 0;
+  --mapLowMid: 0;
+  --mapMid: 0;
+  --mapHighMid: 0;
+}
+```
+
+## Animating CSS variables
+
+With JavaScript you can update CSS variables to certain values.
+These values can then be used in CSS like this:
+
+```css
+.bar.horizontal:nth-child(1) {
+  transform: scaleX(var(--mapBass));
+}
+.bar.horizontal:nth-child(2) {
+  transform: scaleX(var(--mapTremble));
+}
+.bar.horizontal:nth-child(3) {
+  transform: scaleX(var(--mapLowMid));
+}
+.bar.horizontal:nth-child(4) {
+  transform: scaleX(var(--mapMid));
+}
+.bar.horizontal:nth-child(5) {
+  transform: scaleX(var(--mapHighMid));
+}
+```
+
+Because we defined a transition on the bar, the bars will animate when the variables are updated.
+
+## Updating CSS variables with JavaScript
+
+```js
+this.root.style.setProperty('--mapBass', p.map(bass, 0, 255, 0, 2.0));
+this.root.style.setProperty('--mapTremble', p.map(treble, 0, 255, 0, 2.0));
+this.root.style.setProperty('--mapLowMid', p.map(lowMid, 0, 255, 0, 2.0));
+this.root.style.setProperty('--mapMid', p.map(mid, 0, 255, 0, 2.0));
+this.root.style.setProperty('--mapHighMid', p.map(highMid, 0, 255, 0, 2.0));
+```
+
+## Gathering the audio values with P5js
+
+```js
+class Audio {
+  constructor() {
+    this.mapBass = 0;
+    this.mapTremble = 0;
+    this.mapMid = 0;
+    this.mapLowMid = 0;
+    this.mapHighMid = 0;
+    this.bars = Array.from(document.querySelectorAll('.bar'));
+    this.root = document.documentElement;
+  }
+
+  init() {
+    const s = p => {
+      let audio, fft;
+      // Load the soundfile
+      p.preload = () => {
+        audio = p.loadSound('/src/jerry-island-free.mp3');
+
+        // Play/pause button
+        document.querySelector('#play').addEventListener('click', e => {
+          e.target.remove();
+          if (audio.isPlaying()) {
+            audio.pause();
+          } else {
+            audio.loop();
+          }
+        });
+      };
+
+      p.setup = () => {
+        fft = new p5.FFT();
+      };
+
+      p.draw = () => {
+        fft.analyze();
+
+        // Get sound values
+        const bass = fft.getEnergy('bass');
+        const treble = fft.getEnergy('treble');
+        const lowMid = fft.getEnergy('lowMid');
+        const mid = fft.getEnergy('mid');
+        const highMid = fft.getEnergy('highMid');
+
+        // Set CSS variables to a value between 0 and 2
+        this.root.style.setProperty('--mapBass', p.map(bass, 0, 255, 0, 2.0));
+        this.root.style.setProperty(
+          '--mapTremble',
+          p.map(treble, 0, 255, 0, 2.0)
+        );
+        this.root.style.setProperty(
+          '--mapLowMid',
+          p.map(lowMid, 0, 255, 0, 2.0)
+        );
+        this.root.style.setProperty('--mapMid', p.map(mid, 0, 255, 0, 2.0));
+        this.root.style.setProperty(
+          '--mapHighMid',
+          p.map(highMid, 0, 255, 0, 2.0)
+        );
+      };
+    };
+    new p5(s);
+  }
+}
+```
+
+Then start the program like this:
+
+```js
+const audio = new Audio();
+audio.init();
+```
+
+## Demo
+
+And we're done!
+Have a look at the demo to see how it all comes together.
+
+<CodeSandbox id={'web-audio-to-css-variable-animation-0f48n'} view="editor" />
+
+### PS.
+
+Next week there will be an article about converting someones head to particles and then animating those particles to audio values. Sounds cool, right?
+
+---
+
+### Thanks for reading!
+
+I hope someone somewhere learned something via this post! If you did, please consider sharing the article.
