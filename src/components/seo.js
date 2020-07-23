@@ -70,6 +70,10 @@ function SEO({ description = '', lang = 'en', meta = [], title }) {
           name: 'google-site-verification',
           content: 'jQOGccOg93ReBB3EdLXb_72s4PL3b61vhe9qNiSATds',
         },
+        {
+          name: 'propeller',
+          content: '18417507bc1f8c5ee8dd7a2b7da350bb',
+        },
       ].concat(meta)}
     />
   );
