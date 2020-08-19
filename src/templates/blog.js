@@ -316,7 +316,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             </MDXRenderer>
           </div>
         </MDXProvider>
-        <div className="flex justify-center items-center lg:flex-1 mx-auto py-8 lg:py-24 px-8">
+        <div className="flex justify-center items-center lg:flex-1 mx-auto py-4 lg:py-8 px-8">
           <Share
             socialConfig={{
               twitterHandle: 'meesrttn',
