@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Footer = () => (
   <footer className="bg-black-300 w-full py-6 px-4 mt-32 ">
-    <div className="px-4 pt-8 pb-4 border-t -mx-4 border-black-400">
+    {/* <div className="px-4 pt-8 pb-4 border-t -mx-4 border-black-400">
       <div className="max-w-xl mx-auto">
         <h2 className="text-xl text-left inline-block font-semibold text-black-800">
           Join My Newsletter
@@ -31,7 +31,7 @@ export const Footer = () => (
           </div>
         </form>
       </div>
-    </div>
+    </div> */}
     <div className="flex flex-col items-center justify-between my-4 px-4 max-w-xl mx-auto">
       <div className="flex items-center mb-5">
         <a href="mailto:mees@level30wizards.com">
