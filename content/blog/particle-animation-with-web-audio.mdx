@@ -34,8 +34,9 @@ Disclaimer: This article contains a lot of WebGL shader code, which I, as of tod
 - ThreeJS / WebGL for creating and animating particles
 
 ### Libraries
+
 - [ControlKit](https://github.com/brunoimbrizi/controlkit.js) - GUI
-- [gsap](https://www.npmjs.com/package/gsap) - animation platform
+- [gsap](https://greensock.com?ref=68708) - animation platform
 - [glslify](https://github.com/glslify/glslify) - module system for GLSL
 - [stats.js](https://github.com/mrdoob/stats.js/) - performance monitor
 - [Three.js](https://github.com/mrdoob/three.js/) - WebGL library
@@ -93,7 +94,7 @@ update() {
 ## Particles
 
 Classes?!
-Well, this project is an experiment. So I combined work from other people into a new one. 
+Well, this project is an experiment. So I combined work from other people into a new one.
 #FullStackOverflowDeveloper
 
 ```js
@@ -455,12 +456,12 @@ void main() {
 	float radius = 0.5;
 	float dist = radius - distance(uv, vec2(0.5));
 	float t = smoothstep(0.0, border, dist);
-    
+
     uv = 2.0 * uv - 1.0;
-    
+
     // Double the speed
     float wave = sin(uTime * 2.0);
-    
+
     // Scale to make the circle bigger so it reaches the far edges
     float circle = (uv.x * uv.x + uv.y * uv.y) * 0.2;
     vec4 color1 = vec4(0.1, 0.2, 0.8, 1.0); // Red
