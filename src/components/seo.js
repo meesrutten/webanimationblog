@@ -75,7 +75,9 @@ function SEO({ description = '', lang = 'en', meta = [], title }) {
           content: '18417507bc1f8c5ee8dd7a2b7da350bb',
         },
       ].concat(meta)}
-    />
+    >
+      <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="https://webanimation.blog/feed.rss" />
+    </Helmet>
   );
 }
 

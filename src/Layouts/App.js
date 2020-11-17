@@ -6,8 +6,10 @@ import GlobalStyles from '../components/GlobalStyles';
 function App({ children }) {
   return (
     <ThemeProvider>
-      <GlobalStyles />
-      <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
+      <>
+        <GlobalStyles />
+        <AnimatePresence exitBeforeEnter>{children}</AnimatePresence>
+      </>
     </ThemeProvider>
   );
 }
