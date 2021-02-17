@@ -31,16 +31,6 @@ For the example I created my own small text split function. This example should 
 
 We want to create text that animates on first-load. The text should be split for each letter, then animate once smoothly.
 
-## Markup
-
-First we create a styled element
-
-```jsx
-<div className="App">
-  <WavyTextStyled ref={wavyTextRef}>level30wizards.com</WavyTextStyled>
-</div>
-```
-
 ## CSS
 
 We create some global CSS:
@@ -101,7 +91,7 @@ const StyledTitleElement = styled(motion.h2)`
 `;
 ```
 
-## Using hooks
+## Using hooks and writing markup
 
 I'm using a timeout that updates a state `inView`. When `inView` updates it triggers the `useEffect` hook and replays the animation, resulting in a loop.
 
