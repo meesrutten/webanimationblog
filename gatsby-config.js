@@ -112,14 +112,12 @@ module.exports = {
           {
             serialize: ({ query: { site, allMdx } }) => {
               return allMdx.edges.map(edge => {
-                console.log(edge.node);
-                
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
                   url: site.siteMetadata.siteUrl + edge.node.fields.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ "content:encoded": edge.node.html }]
+                  custom_elements: [{ 'content:encoded': edge.node.html }],
                 });
               });
             },
@@ -130,26 +128,30 @@ module.exports = {
                 ) {
                   edges {
                     node {
-                      fields { slug }
+                      fields { 
+                        slug 
+                      }
                       frontmatter {
                         title
                         date
                       }
+                      excerpt
+                      html
                     }
                   }
                 }
               }
             `,
-            output: "/rss.xml",
-            title: "WebAnimation.blog RSS Feed",
+            output: '/rss.xml',
+            title: 'WebAnimation.blog RSS Feed',
             // optional configuration to insert feed reference in pages:
             // if `string` is used, it will be used to create RegExp and then test if pathname of
             // current page satisfied this regular expression;
             // if not provided or `undefined`, all pages will have feed reference inserted
-            match: "^/blog/"
-          }
-        ]
-      }
+            match: '^/blog/',
+          },
+        ],
+      },
     },
   ],
 };
