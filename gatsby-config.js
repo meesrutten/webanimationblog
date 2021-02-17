@@ -143,7 +143,7 @@ module.exports = {
               }
             `,
             output: '/rss.xml',
-            title: 'WebAnimation.blog RSS Feed',
+            title: 'webanimation.blog',
             // optional configuration to insert feed reference in pages:
             // if `string` is used, it will be used to create RegExp and then test if pathname of
             // current page satisfied this regular expression;

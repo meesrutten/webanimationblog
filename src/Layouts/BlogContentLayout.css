@@ -25,7 +25,7 @@
   }
   .blog-content {
     width: 100%;
-    max-width: max(686px, 80%);
+    max-width: max(60rem, 80%);
 
     > * + * {
       margin-bottom: 1.55rem;

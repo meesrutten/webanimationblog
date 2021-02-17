@@ -15,7 +15,8 @@ export const CodeSandbox = ({ id, view }) => {
         overflow: 'hidden',
         marginBottom: '3rem',
       }}
-      title={`${id}`}
+      title={String(id)}
+      id={String(id)}
       allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
       sandbox="allow-autoplay allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
     ></iframe>

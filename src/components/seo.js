@@ -75,7 +75,7 @@ function SEO({ description = '', lang = 'en', meta = [], title }) {
       <link
         rel="alternate"
         type="application/rss+xml"
-        title="Subscribe to What's New"
+        title="webanimation.blog"
         href="https://webanimation.blog/rss.xml"
       />
     </Helmet>
