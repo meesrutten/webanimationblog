@@ -2,7 +2,7 @@ import React from 'react';
 import BlogPostCard from './BlogPostCard';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'gatsby';
-import containerStyles from './BlogPostCardList.module.css';
+import * as containerStyles from './BlogPostCardList.module.css';
 
 const variants = {
   visible: i => ({
@@ -76,7 +76,7 @@ export const BlogPostCardList = props => {
                   to={post.fields.slug}
                   aria-label={`Go to the blog post about ${post.frontmatter.title}`}
                   title={`Go to the blog post about ${post.frontmatter.title}`}
-                  className="card-link block"
+                  className="card-link block h-full"
                 >
                   <BlogPostCard
                     title={post.frontmatter.title}

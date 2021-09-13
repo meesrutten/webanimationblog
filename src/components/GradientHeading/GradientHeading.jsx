@@ -1,5 +1,5 @@
 import React from 'react';
-import containerStyles from './GradientHeading.module.css';
+import * as containerStyles from './GradientHeading.module.css';
 import { motion } from 'framer-motion';
 import { textVariants } from '../layout.js';
 const GradientHeading = props => {

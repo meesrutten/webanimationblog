@@ -1,6 +1,6 @@
 import React from 'react';
 import Img from 'gatsby-image';
-import containerStyles from './BlogPostCard.module.css';
+import * as containerStyles from './BlogPostCard.module.css';
 import { motion } from 'framer-motion';
 
 const BlogPostCard = React.memo(
@@ -16,20 +16,22 @@ const BlogPostCard = React.memo(
         <Img
           alt={title}
           style={{
-            height: homepage ? '20rem' : undefined,
-            maxHeight: '30vh',
+            height: homepage ? '20rem' : '100%',
+            maxHeight: homepage ? '20rem' : '12rem',
           }}
           className={`w-full shadow-none rounded-none`}
           fluid={img}
         />
-        <section className={containerStyles.BlogPostBody + ' px-6 py-4'}>
+        <section className={containerStyles.BlogPostBody + ' px-6 py-4 h-full'}>
           <motion.h2
             layoutId="layoutTitle"
             className="font-bold text-base md:text-xl"
           >
             {title}
           </motion.h2>
-          <p className="text-gray-600 mb-2">{date || 'No date found'}</p>
+          <small className="text-sm block my-2">
+            {date || 'No date found'}
+          </small>
           <p className="text-sm md:text-base">{excerpt}</p>
         </section>
       </motion.article>

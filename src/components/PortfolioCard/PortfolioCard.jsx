@@ -1,5 +1,5 @@
 import React from 'react';
-import containerStyles from './PortfolioCard.module.css';
+import * as containerStyles from './PortfolioCard.module.css';
 import { OutboundLink } from 'gatsby-plugin-google-analytics';
 
 const PortfolioCard = props => {

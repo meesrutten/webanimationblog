@@ -1,5 +1,5 @@
 import React from 'react';
-import containerStyles from './Arrow.module.css';
+import * as containerStyles from './Arrow.module.css';
 
 export const Arrow = props => {
   const { extraId, color, rotation } = props;

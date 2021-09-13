@@ -1,5 +1,5 @@
 import React from 'react';
-import containerStyles from './HeaderImage.module.css';
+import * as containerStyles from './HeaderImage.module.css';
 import Img from 'gatsby-image';
 
 const HeaderImage = ({ fluid }) => {

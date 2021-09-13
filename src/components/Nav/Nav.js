@@ -1,14 +1,14 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import containerStyles from './Nav.module.css';
+import * as containerStyles from './Nav.module.css';
 import Progress from '../Progress/Progress';
 import AnimatedDarkModeToggler from '../DarkModeToggler/AnimatedDarkModeToggler';
 import { Arrow } from '../Arrow/Arrow';
 import { AnimatePresence, motion } from 'framer-motion';
-const spring = {
-  type: 'spring',
-  damping: 20,
-  stiffness: 300,
+
+export const QuartOut = {
+  duration: 0.8,
+  ease: [0.17, 0.84, 0.44, 1],
 };
 
 const Nav = props => {
@@ -27,6 +27,7 @@ const Nav = props => {
             initial={{ opacity: 0, x: '1rem' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '-1rem' }}
+            transition={QuartOut}
           >
             <Link
               className="inline-block py-4"
@@ -73,6 +74,7 @@ const Nav = props => {
           left: location.pathname.includes('blog') ? '50%' : '2rem',
           x: location.pathname.includes('blog') ? '-50%' : '0%',
         }}
+        transition={QuartOut}
       >
         webanimation.blog
       </motion.p>
