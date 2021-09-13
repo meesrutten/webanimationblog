@@ -5,7 +5,7 @@ import { Footer } from '../components/Footer';
 import BlogLayout from '../Layouts/BlogLayout';
 import GradientHeading from '../components/GradientHeading/GradientHeading';
 import { BlogSearchContainer } from '../components/BlogPost/BlogSearchContainer';
-import SEO from '../components/seo';
+import Seo from '../components/seo';
 import { motion } from 'framer-motion';
 
 const BlogIndex = ({ data, location }) => {
@@ -13,7 +13,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <Layout location={location}>
-      <SEO title="webanimation.blog" />
+      <Seo title="webanimation.blog" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

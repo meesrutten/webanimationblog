@@ -68,7 +68,15 @@ module.exports = {
       },
     },
     `gatsby-plugin-remove-trailing-slashes`,
-    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-postcss`,
+      options: {
+        cssLoaderOptions: {
+          exportLocalsConvention: false,
+          namedExport: false,
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

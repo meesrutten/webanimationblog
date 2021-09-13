@@ -16,6 +16,8 @@ import { Share } from '../components/share';
 import { motion } from 'framer-motion';
 import { renderBlogPosts } from '../components/BlogPost/BlogSearchContainer';
 import { Footer } from '../components/Footer';
+import { closestIndexTo } from 'date-fns';
+
 const slugger = new Slugger();
 
 const LiveCode = props => (
@@ -56,53 +58,33 @@ const replacedComponents = {
 
 const allComponents = { ...shortcodes, ...replacedComponents };
 
-export const ToC = ({ mdx, slugger }) => {
-  return mdx && mdx.headings ? (
-    <nav className="lg:flex-1 mb-12">
-      <h2 className="mb-4 font-bold text-2xl">Table of Contents</h2>
-      <ol className="p-0">
-        {mdx.headings.map((heading, i) => (
-          <li key={`${heading.value} - ${i}`}>
-            <Link to={`${mdx.fields.slug}#${slugger.slug(heading.value)}`}>
-              {heading.value}
-            </Link>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  ) : null;
-};
-
-function shuffle(array) {
-  let counter = array.length;
-
-  // While there are elements in the array
-  while (counter > 0) {
-    // Pick a random index
-    let index = Math.floor(Math.random() * counter);
-
-    // Decrease counter by 1
-    counter--;
-
-    // And swap the last element with it
-    let temp = array[counter];
-    array[counter] = array[index];
-    array[index] = temp;
-  }
-
-  return array;
-}
-
 export default function PageTemplate({ location, data: { mdx, allMdx } }) {
   slugger.reset();
   const { edges: posts } = allMdx;
-  const postsExceptCurrent = posts.filter(post => {
-    const { node } = post;
-    return node.id !== mdx.id;
-  });
 
-  const randomRelatedPosts = shuffle(postsExceptCurrent);
-  if (randomRelatedPosts.length > 3) randomRelatedPosts.length = 3;
+  console.log(posts);
+  const allPosts = posts
+    .filter(post => post.node.id !== mdx.id)
+    .sort(
+      (a, b) =>
+        new Date(b.node.frontmatter.dateCreated) -
+        new Date(a.node.frontmatter.dateCreated)
+    );
+  const allPostsDates = allPosts.map(
+    post => new Date(post.node.frontmatter.dateCreated)
+  );
+  const dateToCompare = new Date(mdx.frontmatter.dateCreated);
+  const result = closestIndexTo(dateToCompare, allPostsDates);
+  console.log(dateToCompare, allPosts, result);
+
+  let related = allPosts.splice(result, result + 3);
+  console.log(related);
+
+  if (related.length !== 3) {
+    related = allPosts.splice(allPosts.length - 3, allPosts.length);
+  }
+
+  if (related.length > 3) related.length = 3;
 
   return (
     <Layout location={location} showProgressBar={true}>
@@ -330,12 +312,12 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             }}
           />
         </div>
-        {randomRelatedPosts.length ? (
+        {related.length ? (
           <div className="lg:flex-1 mx-auto py-8 lg:py-24 px-8">
             <h3 className="font-bold text-xl text-center my-8">
               Other posts you might like
             </h3>
-            {renderBlogPosts(randomRelatedPosts)}
+            {renderBlogPosts(related)}
           </div>
         ) : null}
       </BlogContentLayout>

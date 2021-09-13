@@ -1,5 +1,5 @@
 import React from 'react';
-import containerStyles from './BlogLayout.module.css';
+import * as containerStyles from './BlogLayout.module.css';
 
 const BlogLayout = props => {
   const { children } = props;

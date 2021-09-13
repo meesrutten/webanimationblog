@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import containerStyles from './Progress.module.css';
+import * as containerStyles from './Progress.module.css';
 
 const Progress = props => {
   const progressBar = useRef(null);
