@@ -176,7 +176,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
                 "height":"55"
               }
             },
-            "mainEntityOfPage": "${`https://webanimation.blog${mdx.fields.slug}`}",
+            "mainEntityOfPage": "https://webanimation.blog${mdx.fields.slug}",
             "keywords": [
               "web",
               "animation",
