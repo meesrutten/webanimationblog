@@ -62,7 +62,6 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
   slugger.reset();
   const { edges: posts } = allMdx;
 
-  console.log(posts);
   const allPosts = posts
     .filter(post => post.node.id !== mdx.id)
     .sort(
@@ -75,10 +74,8 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
   );
   const dateToCompare = new Date(mdx.frontmatter.dateCreated);
   const result = closestIndexTo(dateToCompare, allPostsDates);
-  console.log(dateToCompare, allPosts, result);
 
   let related = allPosts.splice(result, result + 3);
-  console.log(related);
 
   if (related.length !== 3) {
     related = allPosts.splice(allPosts.length - 3, allPosts.length);
@@ -147,7 +144,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             ).toISOString()}",
             "inLanguage": "nl-NL",
             "isFamilyFriendly": "true",
-            "copyrightYear": "${new Date().getFullYear}",
+            "copyrightYear": "${new Date().getFullYear()}",
             "copyrightHolder": "Mees Rutten",
             "contentLocation": {
               "@type": "Place",
@@ -179,7 +176,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
                 "height":"55"
               }
             },
-            "mainEntityOfPage": "True",
+            "mainEntityOfPage": "${`https://webanimation.blog${mdx.fields.slug}`}",
             "keywords": [
               "web",
               "animation",
