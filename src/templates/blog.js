@@ -155,12 +155,12 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             },
             "accountablePerson": {
               "@type": "Person",
-              "name": "Mees Rutten",
+              "name": "${mdx.frontmatter.author || "Mees Rutten"}",
               "url": "https://webanimation.blog"
             },
             "author": {
               "@type": "Person",
-              "name": "Mees Rutten",
+              "name": "${mdx.frontmatter.author || "Mees Rutten"}",
               "url": "https://webanimation.blog"
             },
             "creator": {
@@ -170,11 +170,11 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             },
             "publisher": {
               "@type": "Organization",
-              "name": "Mees Rutten",
-              "url": "https://webanimation.blog",
+              "name": "Level30Wizards",
+              "url": "https://level30wizards.com/",
               "logo": {
                 "@type": "ImageObject",
-                "url": "http://www.example.com/logo.png",
+                "url": "https://www.level30wizards.com/images/logo.png",
                 "width":"400",
                 "height":"55"
               }
@@ -254,7 +254,7 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
                   marginBottom: '0',
                 }}
               >
-                by Mees Rutten | {new Date(mdx.frontmatter.date).toDateString()}
+                by {mdx.frontmatter.author || "Mees Rutten"} | {new Date(mdx.frontmatter.date).toDateString()}
               </footer>
               {mdx.frontmatter.imgCredit.length ? (
                 <motion.p
