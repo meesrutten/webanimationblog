@@ -48,6 +48,7 @@ export const pageQuery = graphql`
           excerpt(truncate: false, pruneLength: 100)
           frontmatter {
             title
+            author
             datePublished(formatString: "MMMM DD, YYYY")
             featuredImage {
               childImageSharp {

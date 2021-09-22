@@ -152,12 +152,12 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
             },
             "accountablePerson": {
               "@type": "Person",
-              "name": "${mdx.frontmatter.author || "Mees Rutten"}",
+              "name": "${mdx.frontmatter.author || 'Mees Rutten'}",
               "url": "https://webanimation.blog"
             },
             "author": {
               "@type": "Person",
-              "name": "${mdx.frontmatter.author || "Mees Rutten"}",
+              "name": "${mdx.frontmatter.author || 'Mees Rutten'}",
               "url": "https://webanimation.blog"
             },
             "creator": {
@@ -251,7 +251,9 @@ export default function PageTemplate({ location, data: { mdx, allMdx } }) {
                   marginBottom: '0',
                 }}
               >
-                by {mdx.frontmatter.author || "Mees Rutten"} | {new Date(mdx.frontmatter.date).toDateString()}
+                {console.log(mdx.frontmatter)}
+                by {mdx.frontmatter.author || 'Mees Rutten'} |{' '}
+                {new Date(mdx.frontmatter.date).toDateString()}
               </footer>
               {mdx.frontmatter.imgCredit.length ? (
                 <motion.p
@@ -342,6 +344,7 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        author
         undertitle
         date(formatString: "MMMM DD, YYYY")
         dateCreated(formatString: "MMMM DD, YYYY")
@@ -364,6 +367,7 @@ export const pageQuery = graphql`
           excerpt(truncate: false, pruneLength: 100)
           frontmatter {
             title
+            author
             date(formatString: "MMMM DD, YYYY")
             dateCreated(formatString: "MMMM DD, YYYY")
             datePublished(formatString: "MMMM DD, YYYY")
