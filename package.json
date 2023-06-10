@@ -10,7 +10,7 @@
     "autoprefixer": "^10.3.4",
     "date-fns": "^2.23.0",
     "framer-motion": "^4.1.17",
-    "gatsby": "^3.13.0",
+    "gatsby": "^4.25.7",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-feed-mdx": "^1.1.0",
     "gatsby-plugin-google-adsense": "^1.1.3",
